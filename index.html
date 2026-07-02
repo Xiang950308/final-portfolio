@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>週末復古底片市集 — Vintage Film Market</title>
+
+  <!--
+    Google Fonts 字體載入
+    - Playfair Display：英文標題用，優雅的復古書體
+    - Noto Serif TC：中文內文用，與 Playfair 同為襯線體，氣質相符
+    Google Fonts 不屬於 CSS 框架，可合法使用
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ================================================================
+       區塊 1：導覽列 (Navbar)
+       ── 版面技術：Flexbox ──
+       使用 display:flex + justify-content:space-between
+       讓 Logo 靠左、導覽連結靠右
+       手機版：漢堡選單取代橫向連結
+       ================================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+
+      <!-- Flex 子項目 1：左側品牌 Logo -->
+      <a href="#home" class="navbar__brand">
+        <img
+          src="./images/logo.png"
+          alt="復古底片市集 Logo"
+          class="navbar__logo"
+        />
+        <!--
+          mix-blend-mode: multiply 去除圖片白底
+          原理：白色(#fff)乘以任何顏色 = 那個顏色（白色消失）
+          深棕色圖形乘以背景色 = 深棕色保留
+        -->
+      </a>
+
+      <!-- 漢堡按鈕：僅手機版顯示（CSS 控制），桌機版 display:none -->
+      <button
+        class="navbar__hamburger"
+        id="hamburgerBtn"
+        aria-label="開啟導覽選單"
+        aria-expanded="false"
+        aria-controls="navLinks"
+      >
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+
+      <!-- Flex 子項目 2：右側導覽連結 -->
+      <ul class="navbar__links" id="navLinks" role="list">
+        <li>
+          <a href="#about" class="navbar__link">關於市集</a>
+        </li>
+        <li>
+          <a href="#exhibitors" class="navbar__link">攤位展示</a>
+        </li>
+        <li>
+          <!-- 報名連結使用按鈕樣式，在導覽列右側更醒目 -->
+          <a href="#register" class="navbar__link navbar__link--cta">
+            立刻報名
+          </a>
+        </li>
+      </ul>
+
+    </div><!-- /navbar__inner -->
+  </nav>
+
+
+  <!-- ================================================================
+       區塊 2：首頁主視覺 (Hero Section)
+       ── 版面技術：Block ──
+       核心概念：.hero__content 是 block 元素
+       透過設定 width 縮小區塊寬度
+       透過 margin-left: auto 讓區塊靠右排列
+       透過 padding 控制內部留白
+       文字區塊定位在畫面右半部，避開左側相機主體
+       ================================================================ -->
+  <section class="hero" id="home">
+
+    <!--
+      Block 排版示範：
+      .hero__content 本身是 div（塊級元素）
+      - width: 45%  → 限制寬度，使其只佔右半部
+      - margin-left: auto → 自動佔滿左側空間，讓區塊靠右
+      - padding → 內部空間
+      這就是 Block 排版的核心邏輯：用 width + margin 來管理空間
+    -->
+    <div class="hero__content">
+      <!-- 小標（eyebrow），引導讀者進入主標題 -->
+      <span class="hero__eyebrow">2026 夏季場 · 限定回歸</span>
+
+      <!-- 主標題：Playfair Display 字體強化復古氣質 -->
+      <h1 class="hero__title">
+        週末<br />復古底片<br />市集
+      </h1>
+
+      <p class="hero__subtitle">重拾底片的溫度，與老相機相遇</p>
+
+      <!-- 活動基本資訊 -->
+      <div class="hero__meta">
+        <p>📅 &nbsp;2026 年 6 月 27 日（六）– 28 日（日）</p>
+        <p>🕙 &nbsp;AM 10:00 ─ PM 17:00</p>
+        <p>📍 &nbsp;國立雲林科技大學 藝術中心</p>
+      </div>
+
+      <!-- CTA 按鈕：錨點跳至報名區 -->
+      <a href="#register" class="btn btn--hero">立刻報名 →</a>
+    </div>
+
+  </section>
+
+
+  <!-- ================================================================
+       底片裝飾條（純 CSS，本網站的視覺簽名元素）
+       使用 repeating-linear-gradient 模擬 35mm 底片膠卷邊緣孔洞
+       ================================================================ -->
+  <div class="filmstrip" role="presentation" aria-hidden="true">
+    <div class="filmstrip__reel"></div>
+  </div>
+
+
+  <!-- ================================================================
+       關於市集 (About)
+       ================================================================ -->
+  <section class="section about" id="about">
+    <div class="container">
+      <h2 class="section-title">關於市集</h2>
+      <p class="section-subtitle">在數位洪流中，留一格給底片</p>
+      <p class="about__body">
+        「週末復古底片市集」是一個專為底片攝影愛好者打造的聚會場所。
+        每一攤都承載著一段故事，每一卷底片都是等待曝光的旅程。
+        我們邀請老相機收藏家、底片玩家與街拍攝影師，
+        共同在溫暖的週末市集裡，找到那一格屬於自己的影像。
+        無論你是第一次拿起底片相機的新手，還是擁有多年暗房經驗的老手，
+        這裡都歡迎你帶著好奇心踏進來。
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ================================================================
+       區塊 3：攤位展示 (Exhibitors)
+       ── 版面技術：CSS Grid ──
+       .grid-cards 使用 display:grid
+       桌機：grid-template-columns: repeat(4, 1fr) → 4 欄等寬
+       平板：2 欄；手機：1 欄（透過 Media Query 覆寫）
+       ================================================================ -->
+  <section class="section exhibitors" id="exhibitors">
+    <div class="container">
+      <h2 class="section-title">攤位展示</h2>
+      <p class="section-subtitle">本屆精選攤位搶先看</p>
+
+      <!--
+        Grid 容器
+        grid-template-columns: repeat(4, 1fr)
+        → 4 個欄位，每欄平均分配可用空間（1fr = 1 份）
+        gap: 設定欄間距與列間距
+      -->
+      <div class="grid-cards">
+
+        <!-- 攤位卡片 1 -->
+        <article class="card">
+          <!--
+            卡片圖片容器：使用 aspect-ratio: 1/1 確保正方形
+            object-fit: cover 讓圖片填滿容器並自動裁切
+          -->
+          <div class="card__img-box">
+            <img
+              src="./images/grid1.png"
+              alt="底片裝填工作坊 — 攤位現場"
+              class="card__img"
+              loading="lazy"
+            />
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">古典相機典藏攤</h3>
+            <p class="card__desc">
+              Rolleiflex、Leica、Canon……珍稀老相機一字排開，
+              每一台都在訴說屬於那個年代的攝影故事。
+            </p>
+          </div>
+        </article>
+
+        <!-- 攤位卡片 2 -->
+        <article class="card">
+          <div class="card__img-box">
+            <img
+              src="./images/grid2.png"
+              alt="古典相機典藏攤 — Rolleiflex"
+              class="card__img"
+              loading="lazy"
+            />
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">底片選物鋪</h3>
+            <p class="card__desc">
+              Kodak、Fujifilm、Ilford，各式色彩與黑白底片任你挑，
+              新手老手都能在這裡找到心頭好。
+            </p>
+          </div>
+        </article>
+
+        <!-- 攤位卡片 3 -->
+        <article class="card">
+          <div class="card__img-box">
+            <img
+              src="./images/grid3.png"
+              alt="底片選物鋪 — 各品牌底片"
+              class="card__img"
+              loading="lazy"
+            />
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">拍立得快閃體驗</h3>
+            <p class="card__desc">
+              用 instax 即時記錄市集的美好瞬間，
+              每一張都是獨一無二的限量紀念，帶走屬於你的那一格。
+            </p>
+          </div>
+        </article>
+
+        <!-- 攤位卡片 4 -->
+        <article class="card">
+          <div class="card__img-box">
+            <img
+              src="./images/grid4.png"
+              alt="拍立得快閃體驗區 — instax mini"
+              class="card__img"
+              loading="lazy"
+            />
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">攝影配件與裝備</h3>
+            <p class="card__desc">
+              復古真皮相機包、經典 Sekonic 測光表與各式編織肩帶。
+              為你的愛機挑選最合適的質感配件，展現職人品味。
+            </p>
+          </div>
+        </article>
+
+      </div><!-- /grid-cards -->
+    </div><!-- /container -->
+  </section>
+
+
+  <!-- 第二條底片裝飾條 -->
+  <div class="filmstrip" role="presentation" aria-hidden="true">
+    <div class="filmstrip__reel"></div>
+  </div>
+
+
+  <!-- ================================================================
+       區塊 4：報名與常見問題 (Registration & FAQ)
+       ── 版面技術：Flexbox ──
+       .register__flex 使用 display:flex + flex-direction:row
+       桌機版：左側圖片 + 右側 FAQ（左右並排）
+       手機版：flex-direction:column（上下排列，圖片在上）
+       ================================================================ -->
+  <section class="section register" id="register">
+    <div class="container">
+
+      <!--
+        Flex 容器
+        flex-direction: row → 左右並排（桌機預設）
+        手機版 Media Query 改為 flex-direction: column
+      -->
+      <div class="register__flex">
+
+        <!-- Flex 子項目 1：左側情境圖片 -->
+        <div class="register__img-col">
+          <img
+            src="./images/flex-image.png"
+            alt="皮革相機包與 Sekonic 測光表"
+            class="register__img"
+          />
+        </div>
+
+        <!-- Flex 子項目 2：右側 FAQ 內容與按鈕 -->
+        <div class="register__content-col">
+          <h2 class="section-title section-title--left">立刻報名</h2>
+          <p class="section-subtitle section-subtitle--left">
+            攤位名額有限，先搶先贏
+          </p>
+
+          <!--
+            FAQ 使用語意化 dl / dt / dd 標籤
+            dl = definition list（定義列表）
+            dt = term（問題）
+            dd = description（回答）
+          -->
+          <dl class="faq">
+
+            <div class="faq__item">
+              <dt class="faq__q">報名費用是多少？</dt>
+              <dd class="faq__a">
+                攤位費 NT$800 ／天，兩日連報享 NT$1,400 特惠。
+              </dd>
+            </div>
+
+            <div class="faq__item">
+              <dt class="faq__q">可以擺哪些東西？</dt>
+              <dd class="faq__a">
+                底片、老相機、攝影配件、暗房相關物品均歡迎，
+                詳細規定見完整報名說明。
+              </dd>
+            </div>
+
+            <div class="faq__item">
+              <dt class="faq__q">攤位提供哪些設備？</dt>
+              <dd class="faq__a">
+                提供 180×60 cm 桌子一張、椅子兩把，遮陽棚及其他設備請自備。
+              </dd>
+            </div>
+
+            <div class="faq__item">
+              <dt class="faq__q">報名截止日期？</dt>
+              <dd class="faq__a">
+                即日起至 2026 年 6 月 19 日（五），額滿即止。
+              </dd>
+            </div>
+
+          </dl>
+
+          <!-- 醒目報名按鈕 -->
+          <a href="javascript:void(0)" class="btn btn--primary" onclick="alert('報名系統建置中！')">填寫報名表單 →</a>
+        </div>
+
+      </div><!-- /register__flex -->
+    </div><!-- /container -->
+  </section>
+
+
+  <!-- ================================================================
+       頁腳 (Footer)
+       ================================================================ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <img
+        src="./images/logo.png"
+        alt="復古底片市集"
+        class="footer__logo"
+      />
+      <p class="footer__copy">
+        © 2026 週末復古底片市集 &nbsp;·&nbsp; 保留所有底片複製的權利
+      </p>
+      <p class="footer__copy footer__copy--sm">
+        國立雲林科技大學 · 2026.06.27–28
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- ================================================================
+       JavaScript：
+       1. 漢堡選單開關（aria 無障礙屬性同步更新）
+       2. 捲動偵測 → Navbar 加上實色背景
+       ================================================================ -->
+  <script>
+    // 取得 DOM 元素
+    var hamburger = document.getElementById('hamburgerBtn');
+    var navLinks  = document.getElementById('navLinks');
+    var navbar    = document.getElementById('navbar');
+
+    // 漢堡選單：點擊切換 .is-open 類別
+    hamburger.addEventListener('click', function () {
+      var isOpen = navLinks.classList.toggle('is-open');
+      navbar.classList.toggle('navbar--solid-force', isOpen);
+      // 同步更新 aria-expanded 屬性，提升無障礙性
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // 點選任一連結後自動關閉選單（行動版體驗）
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('is-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // 捲動偵測：超過 80px 後給 navbar 加上實色背景
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 80) {
+        navbar.classList.add('navbar--solid');
+      } else {
+        navbar.classList.remove('navbar--solid');
+      }
+    });
+  </script>
+
+</body>
+</html>
